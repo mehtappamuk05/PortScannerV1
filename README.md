@@ -56,4 +56,3 @@ This tool is developed for educational purposes and authorized network security 
 
 *Computer Engineering Student @ Fırat University*
 
-*Cybersecurity & Defensive Security Enthusiast*
