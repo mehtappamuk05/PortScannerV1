@@ -1,0 +1,257 @@
+﻿<Window x:Class="PortScannerV1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Port Scanner v1" Height="750" Width="1100"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
+
+    <Window.Resources>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#1E1E28"/>
+            <Setter Property="Foreground" Value="#A0A0B0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            <Setter Property="BorderBrush" Value="#2A2A35"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#2A2A35"/>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="#16161E"/>
+            <Setter Property="Foreground" Value="#3A3A45"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Track Name="PART_Track" IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border Background="#3A3A45" CornerRadius="5"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#16161E" CornerRadius="15" BorderBrush="#2A2A35" BorderThickness="2">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0,0,0,20">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" WindowChrome.IsHitTestVisibleInChrome="True">
+
+                  
+                    <Button Content="⚙️" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="16" Click="BtnSettings_Click" ToolTip="Ayarlar / Settings"/>
+
+                    <Button Content="🌐" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="16" Click="BtnChangeLanguage_Click" ToolTip="Dili Değiştir / Change Language"/>
+
+                    <Button Content="—" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="14" Click="BtnMinimize_Click"/>
+                    <Button Content="🗖" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="14" Click="BtnMaximize_Click"/>
+                    <Button Content="✕" Width="35" Height="30" Background="Transparent" Foreground="#FF1744" BorderThickness="0" FontSize="14" FontWeight="Bold" Click="BtnClose_Click"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" WindowChrome.IsHitTestVisibleInChrome="True">
+
+                    <Button Content="🌐" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="16" Click="BtnChangeLanguage_Click" ToolTip="Dili Değiştir / Change Language"/>
+
+                    <Button Content="—" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="14" Click="BtnMinimize_Click"/>
+                    <Button Content="🗖" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="14" Click="BtnMaximize_Click"/>
+                    <Button Content="✕" Width="35" Height="30" Background="Transparent" Foreground="#FF1744" BorderThickness="0" FontSize="14" FontWeight="Bold" Click="BtnClose_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource AppTitle}" Foreground="{DynamicResource VurguRengi}" FontSize="26" FontWeight="Bold"/>
+                    <TextBlock Text=" v1" Foreground="{DynamicResource VurguRengi}" FontSize="16" VerticalAlignment="Bottom" Margin="0,0,0,4"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button Content="—" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="14" Click="BtnMinimize_Click"/>
+                    <Button Content="🗖" Width="35" Height="30" Background="Transparent" Foreground="#A0A0B0" BorderThickness="0" FontSize="14" Click="BtnMaximize_Click"/>
+                    <Button Content="✕" Width="35" Height="30" Background="Transparent" Foreground="#FF1744" BorderThickness="0" FontSize="14" FontWeight="Bold" Click="BtnClose_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Background="#1E1E28" CornerRadius="10" Padding="15" Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,30,0">
+                        <TextBlock Text="{DynamicResource TargetIP}" Foreground="#A0A0B0" FontSize="14" Margin="0,0,0,5" FontWeight="SemiBold"/>
+                        <TextBox x:Name="txtIP" Width="200" Height="35" Background="#16161E" Foreground="White" BorderBrush="#3A3A45" BorderThickness="1" Padding="10,0" FontSize="16" VerticalContentAlignment="Center" Text="127.0.0.1"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0,0,30,0">
+                        <TextBlock Text="{DynamicResource StartPort}" Foreground="#A0A0B0" FontSize="14" Margin="0,0,0,5" FontWeight="SemiBold"/>
+                        <TextBox x:Name="txtStartPort" Width="100" Height="35" Background="#16161E" Foreground="White" BorderBrush="#3A3A45" BorderThickness="1" Padding="10,0" FontSize="16" VerticalContentAlignment="Center" Text="1" PreviewTextInput="NumberValidationTextBox"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="{DynamicResource EndPort}" Foreground="#A0A0B0" FontSize="14" Margin="0,0,0,5" FontWeight="SemiBold"/>
+                        <TextBox x:Name="txtEndPort" Width="100" Height="35" Background="#16161E" Foreground="White" BorderBrush="#3A3A45" BorderThickness="1" Padding="10,0" FontSize="16" VerticalContentAlignment="Center" Text="1024" PreviewTextInput="NumberValidationTextBox"/>
+                    </StackPanel>
+
+                    <Button x:Name="btnStart" Click="BtnStart_Click" Grid.Column="4" Width="180" Height="45" Background="{DynamicResource VurguRengi}" Foreground="Black" FontWeight="Bold" FontSize="15" Cursor="Hand" VerticalAlignment="Bottom">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="22">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="▶ " FontSize="14" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtBtnStart" Text="{DynamicResource BtnStart}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <StackPanel Grid.Row="2" Margin="0,0,0,20">
+                <Grid Margin="0,0,0,5">
+                    <TextBlock x:Name="lblScanningIp" Text="Bekleniyor..." Foreground="#A0A0B0" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="lblProgressText" Text="Port 0/0 (%0)" Foreground="#A0A0B0" HorizontalAlignment="Right"/>
+                </Grid>
+                <ProgressBar x:Name="progressBar" Height="8" Value="0" Background="#1E1E28" Foreground="{DynamicResource VurguRengi}" BorderThickness="0">
+                    <ProgressBar.Template>
+                        <ControlTemplate TargetType="ProgressBar">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                <Border x:Name="PART_Indicator" Background="{TemplateBinding Foreground}" CornerRadius="4" HorizontalAlignment="Left"/>
+                            </Border>
+                        </ControlTemplate>
+                    </ProgressBar.Template>
+                </ProgressBar>
+            </StackPanel>
+
+            <Grid Grid.Row="3" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#1E1E28" CornerRadius="8" Margin="0,0,10,0" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource TotalPorts}" Foreground="#A0A0B0" FontSize="12"/>
+                        <TextBlock x:Name="lblTotalPorts" Text="0" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Background="#1E1E28" CornerRadius="8" Margin="0,0,10,0" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Open}" Foreground="#A0A0B0" FontSize="12"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="🛡️" Foreground="#FF1744" FontSize="18" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBlock x:Name="lblOpenPorts" Text="0" Foreground="#FF1744" FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="2" Background="#1E1E28" CornerRadius="8" Margin="0,0,10,0" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Closed}" Foreground="#A0A0B0" FontSize="12"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="🛡️" Foreground="#00E676" FontSize="18" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBlock x:Name="lblClosedPorts" Text="0" Foreground="#00E676" FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="3" Background="#1E1E28" CornerRadius="8" Margin="0,0,10,0" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Filtered}" Foreground="#A0A0B0" FontSize="12"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="🛡️" Foreground="#FFEA00" FontSize="18" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBlock x:Name="lblFilteredPorts" Text="0" Foreground="#FFEA00" FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border x:Name="brdRiskIndicator" Grid.Column="4" Background="#1E1E28" CornerRadius="8" Margin="0,0,10,0" Padding="15" BorderBrush="#00E676" BorderThickness="1">
+                    <TextBlock x:Name="lblRisk" Text="{DynamicResource RiskSafe}" Foreground="#00E676" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+
+                <Border Grid.Column="5" Background="#1E1E28" CornerRadius="8" Padding="15">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="{DynamicResource ScanTime}" Foreground="#A0A0B0" FontSize="12" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="lblScanTime" Text="00:00:00" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="4" Background="#1E1E28" CornerRadius="8" Padding="10" Margin="0,0,0,20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{DynamicResource PortStatus}" Foreground="#A0A0B0" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <DataGrid x:Name="dgResults" Grid.Row="1" Background="Transparent" BorderThickness="0" HeadersVisibility="Column" 
+                              GridLinesVisibility="None" RowBackground="Transparent" Foreground="#E0E0E0" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ColPort}" Width="*" Binding="{Binding Port}"/>
+                            <DataGridTextColumn Header="{DynamicResource ColStatus}" Width="*" Binding="{Binding Status}"/>
+                            <DataGridTextColumn Header="{DynamicResource ColService}" Width="*" Binding="{Binding Service}"/>
+                            <DataGridTextColumn Header="{DynamicResource ColProtocol}" Width="*" Binding="{Binding Protocol}"/>
+                            <DataGridTextColumn Header="{DynamicResource ColRisk}" Width="*" Binding="{Binding Risk}"/>
+                            <DataGridTextColumn Header="{DynamicResource ColBanner}" Width="2*" Binding="{Binding Banner}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="5" Background="#1E1E28" CornerRadius="8" Padding="10" Margin="0,0,0,20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{DynamicResource LogTitle}" Foreground="#A0A0B0" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <RichTextBox x:Name="rtbLogs" Grid.Row="1" Background="Transparent" BorderThickness="0" Foreground="White" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                        <FlowDocument>
+                        </FlowDocument>
+                    </RichTextBox>
+                </Grid>
+            </Border>
+
+            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="{DynamicResource BtnCSV}" Click="BtnExportCSV_Click" Background="#1E1E28" Foreground="{DynamicResource VurguRengi}" BorderBrush="#3A3A45" BorderThickness="1" Padding="15,5" Margin="0,0,10,0"/>
+                <Button Content="{DynamicResource BtnPDF}" Click="BtnExportPDF_Click" Background="#1E1E28" Foreground="#FF1744" BorderBrush="#3A3A45" BorderThickness="1" Padding="15,5" Margin="0,0,10,0"/>
+                <Button Content="{DynamicResource BtnSaveDB}" Click="BtnSaveDB_Click" Background="#1E1E28" Foreground="{DynamicResource VurguRengi}" BorderBrush="#3A3A45" BorderThickness="1" Padding="15,5" Margin="0,0,10,0"/>
+                <Button Content="{DynamicResource BtnCompare}" Click="BtnCompare_Click" Background="#1E1E28" Foreground="{DynamicResource VurguRengi}" BorderBrush="#3A3A45" BorderThickness="1" Padding="15,5" Margin="0,0,10,0"/>
+                <Button Content="{DynamicResource BtnHistory}" Click="BtnHistory_Click" Background="#1E1E28" Foreground="{DynamicResource VurguRengi}" BorderBrush="#3A3A45" BorderThickness="1" Padding="15,5"/>
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</Window>
